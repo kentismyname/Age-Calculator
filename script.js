@@ -1,11 +1,17 @@
 function calculateAge() {
     const dobInput = document.getElementById('dob').value;
-    if (!dobInput) {
-        alert("Please enter your date of birth.");
+    if (!dobInput || dobInput.length !== 6) {
+        alert("Please enter your date of birth in MMDDYY format.");
         return;
     }
 
-    const dob = new Date(dobInput);
+    // Extract month, day, and year from the input
+    const month = parseInt(dobInput.substring(0, 2), 10);
+    const day = parseInt(dobInput.substring(2, 4), 10);
+    const year = parseInt(dobInput.substring(4, 6), 10) + 1900;
+
+    // Create a Date object with the extracted values
+    const dob = new Date(year, month - 1, day);
     const today = new Date();
     let age = today.getFullYear() - dob.getFullYear();
     const monthDiff = today.getMonth() - dob.getMonth();
